@@ -23,7 +23,8 @@ export const HomePage = () => {
   if (!['all', 'favorites', 'heroes', 'villains'].includes(activeTab))
     setSearchParams((prev) => {
       prev.set('tab', 'all');
-      return prev;
+      prev.set('category', 'all');
+      prev.set('page', '1'); return prev;
     })
 
   const { data: summary } = useHeroSummary();
@@ -64,7 +65,7 @@ export const HomePage = () => {
                 prev.set('tab', 'favorites');
                 return prev;
               })}
-              >
+            >
               <Heart className="h-4 w-4" />
               Favorites (3)
             </TabsTrigger>
@@ -75,7 +76,7 @@ export const HomePage = () => {
                 prev.set('page', '1');
                 return prev;
               })}
-              >
+            >
               Heroes ({summary?.heroCount})
             </TabsTrigger>
             <TabsTrigger value="villains"
@@ -115,7 +116,7 @@ export const HomePage = () => {
         <Herogrid />
 
         {/* Pagination */}
-        <CustomPagination totalPages={ heroesResponse?.pages ?? 1 } />
+        <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
       </>
     </>
   )
